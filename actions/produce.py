@@ -36,7 +36,7 @@ class ProduceMessageAction(Action):
         _client_id = self.config.get('client_id') or self.DEFAULT_CLIENT_ID
 
         producer = KafkaProducer(bootstrap_servers=hosts, client_id=_client_id)
-        future = producer.send(topic=topic, value=message)
+        future = producer.send(topic=topic, value=message.encode('utf-8'))
         result = future.get(timeout=60)
 
         if result[0]:
