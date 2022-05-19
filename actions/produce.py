@@ -37,7 +37,7 @@ class ProduceMessageAction(Action):
 
         producer = KafkaProducer(bootstrap_servers=hosts, client_id=_client_id)
         future = producer.send(topic=topic, value=message.encode('utf-8'))
-        result = future.get(timeout=60)
+        result = future.get(timeout=10)
 
         if result[0]:
-            return result[0]._asdict()
+            return result._asdict()
